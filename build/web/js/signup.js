@@ -5,10 +5,10 @@ async function signup() {
     var mobile = document.getElementById("mobile").value;
     var password = document.getElementById("password").value;
     var address = document.getElementById("address").value;
-    
-    
-    
-    
+
+
+
+
     const user_dto = {
         fname: fname,
         lname: lname,
@@ -17,8 +17,8 @@ async function signup() {
         password: password,
         address: address,
     }
-    
-    
+
+
     const response = await fetch("Signup",
             {
                 method: "POST",
@@ -28,11 +28,19 @@ async function signup() {
                 }
             }
     );
-    
+
     if (response.ok) {
-        console.log(response.json);
+
+        const json = await  response.json();
+
+        if (json.success == true) {
+            alert(json.content);
+            console.log(json.content);
+        } else {
+            console.log(json.content);
+        }
     } else {
         alert("Error");
     }
-    
+
 }
