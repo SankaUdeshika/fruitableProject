@@ -36,7 +36,7 @@
         <link href="css/style.css" rel="stylesheet" />
     </head>
 
-    <body >
+    <body onload="LoadCategory();" >
         <!-- Spinner Start -->
         <div
             id="spinner"
@@ -214,6 +214,7 @@
                                         data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne"
                                         aria-expanded="true"
+                                      
                                         aria-controls="collapseOne"
                                         >
                                         Add Product
@@ -246,7 +247,7 @@
 
                                                 <div class="col-12">
                                                     <input
-                                                        id="qty"
+                                                        id="productQty"
                                                         type="number"
                                                         class="w-100 form-control border-0 py-3 mb-4"
                                                         placeholder="Enter qty"
@@ -256,7 +257,7 @@
                                                 <div class="col-12">
                                                     <select
                                                         name=""
-                                                        id=""
+                                                        id="category"
                                                         class="w-100 form-control border-0 py-3 mb-4"
                                                         >
                                                         <option value="">vegitable</option>
@@ -266,7 +267,7 @@
 
                                                 <div class="col-12">
                                                     <textarea
-                                                        id="description"
+                                                        id="productDescription"
                                                         class="w-100 form-control border-0 mb-4"
                                                         rows="5"
                                                         cols="4"
@@ -302,7 +303,7 @@
                                                         </div>
                                                         <div class="col-12">
                                                             <button
-                                                                onclick="CheckVerification();"
+                                                                onclick="AddingProduct();"
                                                                 class="w-100 btn form-control border-secondary py-3 bg-white text-primary"
                                                                 type="button"
                                                                 >
