@@ -23,15 +23,12 @@ async  function signin() {
     );
     if (response.ok) {
         const jsonText = await  response.json();
-
-
-
         if (jsonText.success) {
 //            Redirect Page home
-            // success
+// success
             popup.success({
                 title: 'Success',
-                message: content,
+                message: jsonText.content,
             });
             window.location = "index.html";
         } else {
@@ -45,7 +42,7 @@ async  function signin() {
                     message: "Please Check you Mails and Enter Verificaiton code",
                 });
             } else {
-                // error
+// error
                 popup.error({
                     title: 'Oops',
                     message: jsonText.content,
@@ -56,6 +53,56 @@ async  function signin() {
 
     } else {
         alert("Other Error");
+        // error
+        popup.error({
+            title: 'Oops',
+            message: jsonText.content,
+        });
+    }
+}
+
+//Verificaiton Code
+async  function CheckVerification() {
+
+    const popup = Notification({
+        position: 'bottom-right',
+        duration: 4000,
+        isHidePrev: false,
+        isHideTitle: false,
+        maxOpened: 3,
+    });
+
+    const verifyCode = {
+        verificaiton: document.getElementById("verificaitonCode").value,
+    }
+
+    const response = await fetch("Verification", {
+        method: "POST",
+        body: JSON.stringify(verifyCode),
+        headers: {
+            "Contetn-Type": "application/json"
+        }
+    }
+    );
+
+    if (response.ok) {
+        const jsonText = response.json();
+        if (jsonText.success) {
+//      success
+            popup.success({
+                title: 'Success',
+                message: jsonText.content,
+            });
+            window.location = 'index.html';
+        } else {
+            // error
+            popup.error({
+                title: 'Oops',
+                message: jsonText.content,
+            });
+        }
+
+    } else {
         // error
         popup.error({
             title: 'Oops',

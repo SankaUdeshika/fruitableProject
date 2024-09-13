@@ -64,12 +64,15 @@ public class Signin extends HttpServlet {
 
                     response_Dto.setContent("Login Success");
                     response_Dto.setSuccess(true);
+
                 }
 
             } else {
                 response_Dto.setContent("Invalid User Login Details, Please Try again later");
 
             }
+            session.close();
+
         }
 
         response.setContentType("application/json");
