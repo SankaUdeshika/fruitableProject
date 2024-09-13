@@ -32,16 +32,13 @@ public class Verification extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Response_Dto response_Dto = new Response_Dto();
-
         Gson gson = new Gson();
-
         JsonObject jsonObject = gson.fromJson(request.getReader(), JsonObject.class);
 
         String VerificaitonCode = jsonObject.get("verificaiton").getAsString();
+        Session session = HibernateUtil.getSessionFactory().openSession();
 
         if (request.getSession().getAttribute("email") != null) {
-
-            Session session = HibernateUtil.getSessionFactory().openSession();
 
             String email = (String) request.getSession().getAttribute("email");
 
@@ -63,22 +60,23 @@ public class Verification extends HttpServlet {
                 user_Dto.setLname(user.getLname());
                 user_Dto.setMobile(user.getMobile());
                 user_Dto.setPassword(null);
-                
+
                 request.getSession().removeAttribute("email");
                 request.getSession().setAttribute("user", user_Dto);
-                
-                
-  
-
                 response_Dto.setSuccess(true);
-                response_Dto.setContent("Success");
+                response_Dto.setContent("Verificaiton success");
+
             } else {
                 response_Dto.setSuccess(false);
                 response_Dto.setContent("Invalid Verificaitno Code");
             }
             session.close();
+        } else {
+            response_Dto.setSuccess(false);
+            response_Dto.setContent("Please Log in First");
         }
 
+        response.setContentType("application/json");
         response.getWriter().write(gson.toJson(response_Dto));
         System.out.println(gson.toJson(response_Dto));
     }

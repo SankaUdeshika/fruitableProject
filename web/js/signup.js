@@ -49,6 +49,9 @@ async function signup() {
                 title: 'Success',
                 message: content,
             });
+           
+            window.location = 'signin.html';
+            
         } else {
             console.log(json.content);
             // error

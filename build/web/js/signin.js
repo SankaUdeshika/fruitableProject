@@ -86,8 +86,8 @@ async  function CheckVerification() {
     );
 
     if (response.ok) {
-        const jsonText = response.json();
-        if (jsonText.success) {
+        const jsonText = await  response.json();
+        if (jsonText.) {
 //      success
             popup.success({
                 title: 'Success',
