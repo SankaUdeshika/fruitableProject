@@ -1,4 +1,12 @@
 async function signup() {
+    const popup = Notification({
+        position: 'bottom-right',
+        duration: 4000,
+        isHidePrev: false,
+        isHideTitle: false,
+        maxOpened: 3,
+    });
+
     var fname = document.getElementById("fname").value;
     var lname = document.getElementById("lname").value;
     var email = document.getElementById("email").value;
@@ -34,10 +42,20 @@ async function signup() {
         const json = await  response.json();
 
         if (json.success == true) {
-            alert(json.content);
             console.log(json.content);
+            var content = json.content;
+            // success
+            popup.success({
+                title: 'Success',
+                message: content,
+            });
         } else {
             console.log(json.content);
+            // error
+            popup.error({
+                title: 'Oops',
+                message: json.content,
+            });
         }
     } else {
         alert("Error");
