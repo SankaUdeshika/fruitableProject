@@ -9,6 +9,8 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.show_sql">true</property>
         <mapping class="entity.User"/><!-- aniwaren Table eka define karanna oni.-->
+        <mapping class="entity.Product"/>
+        <mapping class="entity.Category"/>
     </session-factory>
 </hibernate-configuration>
 
