@@ -100,24 +100,24 @@ public class ProductAdding extends HttpServlet {
                 session.beginTransaction().commit();
 
                 String applicationPath = request.getServletContext().getRealPath("");
-                String newApplicaitonPath = applicationPath.replace("build" + File.separator + "web", "productImages");
+//                String newApplicationPath = applicationPath.replace("build" + File.separator + "web", "web");
 
-                File folder = new File(applicationPath + "//" + pid);
+                File folder = new File(applicationPath + File.separator + "product-images" + File.separator + pid);
                 if (!folder.exists()) {
                     folder.mkdir();
                 }
 
-                File file1 = new File(folder, +pid + "image1.png");// file object ekak handaawa.
+                File file1 = new File(folder, "image1.jpg");// file object ekak handaawa.
                 InputStream inputStream = image1.getInputStream(); // image eka input Stream ekak widihata gannawa
                 Files.copy(inputStream, file1.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-                File file2 = new File(folder, pid + "image2.png");
+                File file2 = new File(folder, "image2.jpg");
                 InputStream inputStrea2 = image2.getInputStream();
                 Files.copy(inputStrea2, file2.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-                File file3 = new File(folder, pid + "image3.png");
+                File file3 = new File(folder, "image3.jpg");
                 InputStream inputStrea3 = image3.getInputStream();
-                Files.copy(inputStream, file3.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(inputStrea3, file3.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
                 response_Dto.setContent("New Product Added");
                 response_Dto.setSuccess(true);

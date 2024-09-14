@@ -82,7 +82,7 @@ async function  AddingProduct() {
             popup.success({
                 title: 'Success',
                 message: jsonResponse.content,
-            });
+            }); 
         } else {
             console.log(jsonResponse.content);
             popup.error({
