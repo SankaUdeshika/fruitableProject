@@ -26,6 +26,7 @@ async function HomeLoadProdcuts(categoryType) {
         const productList = responseText.productList;
         const dto = responseText.response_Dto;
         if (dto == '{"success":true,"content":"Success"}') {
+            document.getElementById("productBox").style.visibility = "visible";
             popup.success({
                 title: 'Product Loaded',
                 message: "All Product Loaded",
@@ -41,7 +42,7 @@ async function HomeLoadProdcuts(categoryType) {
                 productClone.querySelector("#product-description").innerHTML = products.Description1;
                 productClone.querySelector("#product-price").innerHTML = "Rs." + products.product_price + " /kg";
                 productClone.querySelector("#singleViewLink").addEventListener("click", function () {
-                    window.location = 'SingleProductView.html?pid=' + products.product_id;
+                    window.location = 'SingleProductView.html?id=' + products.product_id;
                 });
 
 
@@ -51,6 +52,8 @@ async function HomeLoadProdcuts(categoryType) {
             productHtml.style.display = "none";
 
         } else {
+            document.getElementById("productBox").style.visibility = "hidden";
+
             popup.error({
                 title: 'Empty Products',
                 message: "you have nothing to show products in this category",

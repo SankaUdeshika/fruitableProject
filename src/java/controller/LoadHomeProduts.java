@@ -75,7 +75,7 @@ public class LoadHomeProduts extends HttpServlet {
             jsonObject.add("productList", gson.toJsonTree(productList));
 
         }
-        System.out.println(gson.toJson(jsonObject.get("response_Dto")));
+        System.out.println(gson.toJson(jsonObject.get("productList")));
         response.setContentType("application/json");
         response.getWriter().write(gson.toJson(jsonObject));
 

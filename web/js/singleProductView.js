@@ -1,7 +1,6 @@
 async function LoadSingleProduct() {
 
     const parameters = new URLSearchParams(window.location.search);
-
     if (parameters.has("id")) {
         const productID = parameters.get("id");
 
@@ -18,8 +17,8 @@ async function LoadSingleProduct() {
             document.getElementById("product_category").innerHTML = jsonText.product.category.category_name;
             document.getElementById("product_price").innerHTML = "Rs." + jsonText.product.product_price;
             document.getElementById("description").innerHTML = jsonText.product.Description1;
-//            document.getElementById("priceQty").max = jsonText.product.qty;
-//            document.getElementById("priceQty").min = 1;
+            document.getElementById("add-to-cart-qty").max = jsonText.product.qty; // Set the maximum value
+            document.getElementById("add-to-cart-qty").min = 1;
 
             document.getElementById("add-To-Cart").addEventListener("click",
                     (e) => {
@@ -50,7 +49,7 @@ async function addToCart(id, qty) {
     const response = await fetch(
             "AddToCart?id=" + id + "&qty=" + qty, {}
     );
-    
+
 
     if (response.ok) {
         const data = await response.json();
