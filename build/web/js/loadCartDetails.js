@@ -34,10 +34,6 @@ async function  loadCart() {
                 total = total + products.qty * products.product_product_id.product_price;
 
 
-
-//                document.getElementById("add-to-cart-qty").max = products.qty; // Set the maximum value
-//                document.getElementById("add-to-cart-qty").min = 1;
-//
                 document.getElementById("add-To-Cart").addEventListener("click",
                         (e) => {
                     addToCart(productID,
