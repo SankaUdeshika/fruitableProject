@@ -83,6 +83,8 @@ async function  AddingProduct() {
                 title: 'Success',
                 message: jsonResponse.content,
             }); 
+            
+            setTimeout(500,window.location.reload());
         } else {
             console.log(jsonResponse.content);
             popup.error({

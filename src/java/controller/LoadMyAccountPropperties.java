@@ -7,6 +7,7 @@ package controller;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import dto.Response_Dto;
+import dto.User_Dto;
 import entity.Category;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,13 +37,19 @@ public class LoadMyAccountPropperties extends HttpServlet {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
+//      Get Category List
         Criteria criteria1 = session.createCriteria(Category.class);
         criteria1.addOrder(Order.asc("category_id"));
         List<Category> categoryList = criteria1.list();
+        System.out.println(categoryList);
+        
+//      Get Product List
+        System.out.println(request.getSession().getAttribute("user"));;
+        
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.add("categoryList", gson.toJsonTree(categoryList));
-        
+
         System.out.println(gson.toJsonTree(categoryList));
 
         response.setContentType("applocaiton/json");

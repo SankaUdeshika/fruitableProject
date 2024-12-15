@@ -11,6 +11,7 @@
         <mapping class="entity.User"/><!-- aniwaren Table eka define karanna oni.-->
         <mapping class="entity.Product"/>
         <mapping class="entity.Category"/>
+        <mapping class="entity.Cart"/>
     </session-factory>
 </hibernate-configuration>
 

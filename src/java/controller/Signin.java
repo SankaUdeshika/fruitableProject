@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.HibernateUtil;
 import model.Validation;
 import org.hibernate.Criteria;
@@ -60,7 +61,9 @@ public class Signin extends HttpServlet {
                     user.setPassword(null);
                     user.setAddress(user_Dto.getAddress());
 
-                    request.getSession().setAttribute("user", user_Dto);
+                    HttpSession httpSession = request.getSession();
+                    httpSession.setMaxInactiveInterval(30 * 60);
+                    httpSession.setAttribute("user", user_Dto);
 
                     response_Dto.setContent("Login Success");
                     response_Dto.setSuccess(true);
