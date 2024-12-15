@@ -46,6 +46,15 @@ async function LoadSingleProduct() {
 async function addToCart(id, qty) {
 
 
+    const popup = Notification({
+        position: 'bottom-right',
+        duration: 4000,
+        isHidePrev: false,
+        isHideTitle: false,
+        maxOpened: 3,
+    });
+
+
     const response = await fetch(
             "AddToCart?id=" + id + "&qty=" + qty, {}
     );
@@ -53,8 +62,24 @@ async function addToCart(id, qty) {
 
     if (response.ok) {
         const data = await response.json();
-        console.log(data);
-        console.log("success");
+        if (data.response_dto == '{"success":false,"content":"login"}') {
+            window.location = 'signin.html';
+        } else if (data.response_dto == '{"success":true,"content":"addedtocart"}') {
+            popup.success({
+                title: 'Cart Added',
+                message: "Add To Card Success",
+            });
+            document.getElementById("add-To-Cart").innerHTML = " <i class='fa fa-shopping-bag me-2 text-primary'></i>Delete From Cart"
+        } else if (data.response_dto == '{"success":true,"content":"DeletefromCart"}') {
+            popup.error({
+                title: 'Cart Delete ',
+                message: "Delete Cart Success",
+            });
+            document.getElementById("add-To-Cart").innerHTML = " <i class='fa fa-shopping-bag me-2 text-primary'></i> Add to  Cart"
+
+        } else if (data.response_dto == '{"success":true,"content":"notvalidqty"}') {
+            alert("Delete from cart");
+        }
     } else {
         console.log("error")
     }
