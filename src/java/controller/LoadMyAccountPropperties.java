@@ -9,6 +9,8 @@ import com.google.gson.JsonObject;
 import dto.Response_Dto;
 import dto.User_Dto;
 import entity.Category;
+import entity.Product;
+import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -21,6 +23,7 @@ import model.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -42,15 +45,22 @@ public class LoadMyAccountPropperties extends HttpServlet {
         criteria1.addOrder(Order.asc("category_id"));
         List<Category> categoryList = criteria1.list();
         System.out.println(categoryList);
-        
+
 //      Get Product List
-        System.out.println(request.getSession().getAttribute("user"));;
-        
+        User_Dto user_Dto = (User_Dto) request.getSession().getAttribute("user");
+        String loggedUserEmail = user_Dto.getEmail();
+        User user = (User) session.get(User.class, loggedUserEmail);
+
+        Criteria productCriteria = session.createCriteria(Product.class);
+        productCriteria.add(Restrictions.eq("user", user));
+        List<Product> productList = productCriteria.list();
+        System.out.println(gson.toJsonTree(productList));
+        //System.out.println(gson.toJsonTree(categoryList));
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.add("categoryList", gson.toJsonTree(categoryList));
-
-        System.out.println(gson.toJsonTree(categoryList));
+        jsonObject.add("productList", gson.toJsonTree(productList));
+//        System.out.println(gson.toJsonTree(categoryList));
 
         response.setContentType("applocaiton/json");
         response.getWriter().write(gson.toJson(jsonObject));

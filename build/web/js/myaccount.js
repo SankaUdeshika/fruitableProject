@@ -9,9 +9,9 @@ async function  LoadCategory() {
 
         const jsonText = await  response.json();
         const CategoryList = jsonText.categoryList;
+        const productList = jsonText.productList;
 
 //        add Category Selector
-
         const SelectTag = document.getElementById("category");
         CategoryList.forEach(category => {
             let optionTag = document.createElement("option");
@@ -20,7 +20,42 @@ async function  LoadCategory() {
             SelectTag.appendChild(optionTag);
         });
 
+//      Product Listning
+        productList.forEach(products => {
+            let productHtml = document.getElementById("productCard");
+            let productClone = productHtml.cloneNode(true);
+            console.log(products.product_name);
+            productClone.querySelector("#category").innerHTML = products.category.category_name;
+            productClone.querySelector("#product-images").src = "product-images/" + products.product_id + "/image1.jpg";
+            productClone.querySelector("#product-name").innerHTML = products.product_name;
+            productClone.querySelector("#product-description").innerHTML = products.Description1;
+            productClone.querySelector("#product-price").innerHTML = "Rs." + products.product_price + " /kg";
 
+            productClone.querySelector("#DeleteProdcut").addEventListener("click", function () {
+                (async function () {
+
+
+
+                    const responseText = await fetch("DeleteProduct?pid=" + products.product_id);
+
+                    if (responseText.ok) {
+                        alert("OK");
+                    } else {
+                        alert("Something went wrong, try again later");
+                    }
+
+                })();
+            });
+
+
+
+
+
+
+
+
+            document.getElementById("productBox").appendChild(productClone);
+        });
     }
 
 }
@@ -82,9 +117,9 @@ async function  AddingProduct() {
             popup.success({
                 title: 'Success',
                 message: jsonResponse.content,
-            }); 
-            
-            setTimeout(500,window.location.reload());
+            });
+
+            setTimeout(500, window.location.reload());
         } else {
             console.log(jsonResponse.content);
             popup.error({
